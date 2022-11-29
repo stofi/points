@@ -1,33 +1,59 @@
+import * as THREE from 'three'
+
 import { Environment, OrbitControls } from '@react-three/drei'
+import {
+  Bloom,
+  EffectComposer,
+  Glitch,
+  Scanline,
+} from '@react-three/postprocessing'
 
 import { useControls } from 'leva'
 
+import Sphere from './Sphere'
+
 export default function Scene() {
-  const { sphereColor, floorColor } = useControls({
-    sphereColor: { value: '#c4c4c4', label: 'Sphere Color' },
-    floorColor: { value: '#5c5c5c', label: 'Floor Color' },
-  })
+  useControls({})
 
   return (
     <>
-      <OrbitControls makeDefault />
-
-      {/* <directionalLight />
-
-      <hemisphereLight intensity={0.5} args={['lightblue', 'lightgreen']} /> */}
-
-      <Environment preset='sunset' background={false}></Environment>
-
-      <mesh position-y={1}>
-        <sphereGeometry args={[1]} />
-        <meshStandardMaterial color={sphereColor} roughness={0} />
-      </mesh>
-
-      <mesh rotation-x={-Math.PI * 0.5} position-y={-0.001}>
-        <planeGeometry args={[10, 10]} />
-
-        <meshStandardMaterial color={floorColor} roughness={0.8} />
-      </mesh>
+      <EffectComposer>
+        <Glitch
+          delay={new THREE.Vector2(10, 20)}
+          strength={new THREE.Vector2(0.1, 0.2)}
+          duration={new THREE.Vector2(0.01, 0.2)}
+          columns={0.7}
+          chromaticAberrationOffset={new THREE.Vector2(0.1, 0.2)}
+        />
+        <Bloom luminanceThreshold={1} mipmapBlur />
+        <Scanline />
+      </EffectComposer>
+      <OrbitControls enablePan={false} />
+      <Sphere
+        radius={1}
+        count={50000}
+        color={new THREE.Color('cyan')}
+        timeOffset={0}
+        frequency={1}
+        amplitude={2}
+      />
+      <Sphere
+        radius={1}
+        count={50000}
+        color={new THREE.Color('yellowgreen')}
+        timeOffset={Math.PI / 3}
+        timeScale={-1}
+        frequency={1}
+        amplitude={2}
+      />
+      <Sphere
+        radius={1}
+        count={50000}
+        color={new THREE.Color('lime')}
+        timeOffset={(2 * Math.PI) / 3}
+        frequency={1}
+        amplitude={2}
+      />
     </>
   )
 }

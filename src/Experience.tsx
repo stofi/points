@@ -13,12 +13,14 @@ export default function Experience() {
       <Canvas
         flat={false}
         shadows={true}
-        dpr={1}
+        dpr={2}
         camera={{
-          position: [5, 5, 5],
+          position: [1, 1, 1],
+        }}
+        gl={{
+          antialias: false,
         }}
       >
-        <color args={['lightblue']} attach='background' />
         <Suspense>
           <Scene />
         </Suspense>
