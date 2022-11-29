@@ -31,7 +31,7 @@ export default function Scene() {
       <OrbitControls enablePan={false} />
       <Sphere
         radius={1}
-        count={50000}
+        count={10000}
         color={new THREE.Color('cyan')}
         timeOffset={0}
         frequency={1}
@@ -39,7 +39,7 @@ export default function Scene() {
       />
       <Sphere
         radius={1}
-        count={50000}
+        count={10000}
         color={new THREE.Color('yellowgreen')}
         timeOffset={Math.PI / 3}
         timeScale={-1}
@@ -48,7 +48,7 @@ export default function Scene() {
       />
       <Sphere
         radius={1}
-        count={50000}
+        count={10000}
         color={new THREE.Color('lime')}
         timeOffset={(2 * Math.PI) / 3}
         frequency={1}
